@@ -1,23 +1,32 @@
-import logo from './logo.svg';
+import { useState } from 'react';
+import {v4} from 'uuid'
 import './App.css';
+import {  useSelector } from 'react-redux';
+import MyInput from './components/UI/MyInput/MyInput'
+import {usePosts} from './hooks/usePosts'
 
-function App() {
+function App() {  
+  const customers = useSelector(state => state.customers)  
+  const [query, setQuery] = useState('')
+  const users = usePosts(query, customers) 
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <MyInput 
+        placeholder='...search' 
+        value={query}
+        onChange={(e) => setQuery(e.target.value)}
+      />
+      {users.length ?
+        users.map(item => 
+          <div 
+            key={v4()}
+            className='post'
+          >
+            {item}
+          </div>
+        ) : <h2 style={{textAlign : 'center'}}>There are not users</h2>        
+      }
     </div>
   );
 }
