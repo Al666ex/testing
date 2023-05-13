@@ -1,11 +1,11 @@
 
 import MyInput from "../UI/MyInput/MyInput";
 
-const QueryString = ({query, setQuery}) => 
+const QueryString = ({query, setQueryString}) => 
  <MyInput 
     placeholder='...search' 
     value={query}
-    onChange={(e) => setQuery(e.target.value)}
+    onChange={(e) => setQueryString(e.target.value)}
   />    
 
 export default QueryString;

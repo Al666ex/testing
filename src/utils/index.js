@@ -6,3 +6,8 @@ export function debounce(func, ms) {
     };
   }
 
+export 	function getURLParam( name ) {
+  var queryString = window.location.search;
+  var urlParams = new URLSearchParams(queryString);
+  return  urlParams.get(name);
+}
