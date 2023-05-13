@@ -1,32 +1,23 @@
 import { useState } from 'react';
-import {v4} from 'uuid'
 import './App.css';
-import {  useSelector } from 'react-redux';
-import MyInput from './components/UI/MyInput/MyInput'
-import {usePosts} from './hooks/usePosts'
+import {usePosts} from './hooks/usePosts';
+import QueryString from './components/QueryString/QueryString';
+import Posts from './components/Posts/Posts';
 
-function App() {  
-  const customers = useSelector(state => state.customers)  
-  const [query, setQuery] = useState('')
-  const users = usePosts(query, customers) 
+function App() {    
+  const [query, setQuery] = useState('');
+  const users = usePosts(query);
 
   return (
     <div className="App">
-      <MyInput 
-        placeholder='...search' 
-        value={query}
-        onChange={(e) => setQuery(e.target.value)}
+      <QueryString 
+        query={query} 
+        setQuery={setQuery} 
       />
-      {users.length ?
-        users.map(item => 
-          <div 
-            key={v4()}
-            className='post'
-          >
-            {item}
-          </div>
-        ) : <h2 style={{textAlign : 'center'}}>There are not users</h2>        
-      }
+      <Posts 
+        users={users}
+        text='There are not users' 
+      />
     </div>
   );
 }
